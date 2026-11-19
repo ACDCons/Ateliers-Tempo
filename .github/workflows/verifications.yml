@@ -1,0 +1,43 @@
+name: Vérifications
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verification:
+    name: Tests et vérifications
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v7
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Installer les dépendances npm
+        run: npm ci
+
+      - name: Installer Chromium pour Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Préparer les bases et les comptes de test
+        # Le script affiche les mots de passe générés ; ne pas les publier dans les logs CI.
+        run: npm run setup > /dev/null 2>&1
+
+      - name: Lint, types, tests unitaires et build
+        run: npm run check
+
+      - name: Vérifier le seuil de couverture
+        run: npm run test:coverage
+
+      - name: Vérifier les parcours navigateur
+        run: npm run test:e2e

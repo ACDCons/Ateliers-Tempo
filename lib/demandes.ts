@@ -26,7 +26,9 @@ export function validerDemande(saisie: DemandeSaisie): Validation {
   if (!nom) return { ok: false, erreur: 'Indiquez votre nom.' };
   if (nom.length > 100) return { ok: false, erreur: 'Le nom est trop long.' };
   if (!email) return { ok: false, erreur: 'Indiquez votre adresse e-mail.' };
-  if (!email.includes('@')) return { ok: false, erreur: 'Cette adresse e-mail n’est pas valide.' };
+  if (!/^[^\s@]+@(?:[^\s@.]+\.)+[^\s@.]+$/.test(email)) {
+    return { ok: false, erreur: 'Cette adresse e-mail n’est pas valide.' };
+  }
   if (telephone.length > 30) return { ok: false, erreur: 'Le numéro de téléphone est trop long.' };
   if (message.length > 2000) return { ok: false, erreur: 'Le message est trop long (2 000 caractères au plus).' };
 
@@ -102,8 +104,5 @@ export async function modifierDemande(id: string, changement: { statutId: number
 
 // Supprime une demande précise.
 export async function supprimerDemande(id: string) {
-  const [demande] = await db.select().from(demandes).where(eq(demandes.id, id));
-  if (!demande) return;
   await db.delete(demandes).where(eq(demandes.id, id));
-  await db.delete(contacts).where(eq(contacts.id, demande.contactId));
 }

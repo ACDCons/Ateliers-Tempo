@@ -18,7 +18,9 @@ export default async function Crm({ searchParams }: { searchParams: Promise<{ ok
 
   const { ok, erreur } = await searchParams;
   const gestionnaire = visiteur.role === 'gestionnaire';
-  const [lignes, statuts] = await Promise.all([listerDemandes(), listerStatuts()]);
+  const [lignes, statuts] = gestionnaire
+    ? await Promise.all([listerDemandes(), listerStatuts()])
+    : [[], []];
 
   return (
     <section className="crm">
@@ -33,7 +35,9 @@ export default async function Crm({ searchParams }: { searchParams: Promise<{ ok
       {ok && MESSAGES[ok] && <p className="succes" role="status">{MESSAGES[ok]}</p>}
       {erreur && <p className="erreur" role="alert">{erreur}</p>}
 
-      {lignes.length === 0 ? (
+      {!gestionnaire ? (
+        <p>Votre accès est limité. Aucune demande n’est affichée.</p>
+      ) : lignes.length === 0 ? (
         <p>Aucune demande pour l’instant.</p>
       ) : (
         <ul className="demandes">

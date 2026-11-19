@@ -18,7 +18,9 @@ a { color: var(--accent); }
 .entete nav { display: flex; gap: 20px; }
 .marque { font-weight: 700; text-decoration: none; color: var(--encre); }
 .pied { padding: 20px 4vw; color: var(--doux); font-size: 14px; border-top: 1px solid var(--ligne); }
-.hero { padding: 48px 0 32px; max-width: 680px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .9fr); align-items: center; gap: 24px; padding: 48px 0 32px; }
+.hero-contenu { max-width: 680px; }
+.hero-illustration { display: block; width: 100%; max-width: 460px; height: auto; justify-self: end; }
 .hero h1 { font-size: clamp(36px, 6vw, 64px); margin: 8px 0 16px; line-height: 1.05; }
 .surtitre { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; color: var(--doux); }
 .bouton, button { display: inline-block; padding: 12px 20px; border-radius: 10px; border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
@@ -41,3 +43,7 @@ input, textarea, select { font: inherit; padding: 10px 12px; border: 1px solid v
 .demande-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
 form.ligne { grid-auto-flow: column; align-items: end; }
 details summary { cursor: pointer; font-weight: 600; margin-bottom: 12px; }
+@media (max-width: 700px) {
+  .hero { grid-template-columns: 1fr; gap: 0; padding: 36px 0 24px; }
+  .hero-illustration { max-width: min(420px, 90%); justify-self: center; margin-top: 8px; }
+}

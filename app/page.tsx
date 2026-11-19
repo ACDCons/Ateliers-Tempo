@@ -1,4 +1,5 @@
 import { envoyerDemande } from './actions';
+import Image from 'next/image';
 
 export default async function Accueil({ searchParams }: { searchParams: Promise<{ erreur?: string }> }) {
   const { erreur } = await searchParams;
@@ -6,10 +7,20 @@ export default async function Accueil({ searchParams }: { searchParams: Promise<
   return (
     <>
       <section className="hero">
-        <p className="surtitre">École de musique · tous niveaux</p>
-        <h1>La musique, avec Ella.</h1>
-        <p>Piano, guitare et chant, en petits groupes ou en cours particuliers. Le premier cours sert à se rencontrer : on écoute vos envies, on choisit ensemble.</p>
-        <a className="bouton" href="#demande">Demander un cours d’essai</a>
+        <div className="hero-contenu">
+          <p className="surtitre">École de musique · tous niveaux</p>
+          <h1>La musique, avec Ella.</h1>
+          <p>Piano, guitare et chant, en petits groupes ou en cours particuliers. Le premier cours sert à se rencontrer : on écoute vos envies, on choisit ensemble.</p>
+          <a className="bouton" href="#demande">Demander un cours d’essai</a>
+        </div>
+        <Image
+          className="hero-illustration"
+          src="/piano-illustration.png"
+          alt="Piano droit prune accompagné d’une plante et de fleurs violettes."
+          width={1312}
+          height={1199}
+          sizes="(max-width: 700px) 90vw, (max-width: 1100px) 40vw, 440px"
+        />
       </section>
 
       <section className="cartes">

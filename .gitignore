@@ -1,0 +1,23 @@
+# Outils téléchargés par npm install
+node_modules/
+
+# Next.js et TypeScript
+.next/
+next-env.d.ts
+*.tsbuildinfo
+
+# Bases SQLite locales (jamais sur GitHub)
+data/
+*.sqlite
+*.sqlite-*
+
+# Variables et secrets
+.env*.local
+.env
+
+# Résultats de tests
+coverage/
+playwright-report/
+test-results/
+
+.DS_Store

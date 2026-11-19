@@ -3,6 +3,7 @@ node_modules/
 
 # Next.js et TypeScript
 .next/
+.next-e2e/
 next-env.d.ts
 *.tsbuildinfo
 
